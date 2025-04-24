@@ -2,20 +2,25 @@ from Window import Window
 from Point import Point
 from Line import Line
 from Cell import Cell
+from Maze import Maze
 
-CELL_SIZE = 100
-PADDING = 100
+CELL_SIZE = 20
+PADDING = 20
 WIDTH = 800
-HEIGHT = 800
+HEIGHT = 600
 
 def main():
   win = Window(WIDTH, HEIGHT)
-  cells = [Cell(
-    Point(PADDING + col * CELL_SIZE, PADDING + row * CELL_SIZE),
-    Point(PADDING + (col + 1) * CELL_SIZE, PADDING + (row + 1) * CELL_SIZE),
-  ) for col in range(int((WIDTH - 2 * PADDING) / CELL_SIZE)) for row in range(int((HEIGHT - 2 * PADDING) / CELL_SIZE))]
-  for cell in cells: 
-    win.draw_cell(cell)
+  maze = Maze(
+    PADDING,
+    PADDING,
+    (HEIGHT - 2 * PADDING) // CELL_SIZE,
+    (WIDTH - 2 * PADDING) // CELL_SIZE,
+    CELL_SIZE,
+    CELL_SIZE,
+    win
+  )
+  maze.solve()
   win.wait_for_close()
 
 if __name__ == "__main__":
